@@ -374,6 +374,7 @@ def main():
                                 highlighted_tags = highlighted_tags.replace(keyword, f"**{keyword}**")
                             st.markdown(f"Matched Tags: {highlighted_tags}")
   
+
         # Add to chat history
         if 'chat_history' not in st.session_state:
             st.session_state.chat_history = []
@@ -383,7 +384,7 @@ def main():
         del st.session_state.current_question
 
     # Add a section for displaying recent questions and answers
-     if 'chat_history' in st.session_state and st.session_state.chat_history:
+    if 'chat_history' in st.session_state and st.session_state.chat_history:
         st.header("Recent Questions and Answers")
         for i, (q, a) in enumerate(reversed(st.session_state.chat_history[-5:])):
             with st.expander(f"Q: {q}"):
