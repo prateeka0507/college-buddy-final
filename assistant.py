@@ -338,7 +338,9 @@ def main():
     st.header("Ask Your Own Question")
     
     def process_query():
-        st.session_state.current_question = st.session_state.user_query
+        if st.session_state.user_query:  # Only process if there's input
+            st.session_state.current_question = st.session_state.user_query
+            st.session_state.user_query = ""  # Clear the input
     
     user_query = st.text_input("What would you like to know about the uploaded documents?", key="user_query", on_change=process_query)
 
@@ -352,7 +354,6 @@ def main():
             st.write(st.session_state.current_question)
             st.subheader("Answer:")
             st.write(answer)
-            
             
             st.subheader("Related Keywords:")
             st.write(", ".join(keywords))
