@@ -327,7 +327,7 @@ def main():
             st.switch_page("pages/database.py")
    
     # Main content area
-    st.header("Popular Questions")
+ st.header("Popular Questions")
     if 'selected_questions' not in st.session_state:
         st.session_state.selected_questions = random.sample(EXAMPLE_QUESTIONS, 3)
 
@@ -336,13 +336,11 @@ def main():
             st.session_state.current_question = question
 
     st.header("Ask Your Own Question")
-    user_query = st.text_input("What would you like to know about the uploaded documents?")
-
-    if st.button("Get Answer"):
-        if user_query:
-            st.session_state.current_question = user_query
-        elif 'current_question' not in st.session_state:
-            st.warning("Please enter a question or select a popular question before searching.")
+    
+    def process_query():
+        st.session_state.current_question = st.session_state.user_query
+    
+    user_query = st.text_input("What would you like to know about the uploaded documents?", key="user_query", on_change=process_query)
 
     if 'current_question' in st.session_state:
         with st.spinner("Searching for the best answer..."):
@@ -354,6 +352,7 @@ def main():
             st.write(st.session_state.current_question)
             st.subheader("Answer:")
             st.write(answer)
+            
             
             st.subheader("Related Keywords:")
             st.write(", ".join(keywords))
@@ -384,7 +383,7 @@ def main():
         del st.session_state.current_question
 
     # Add a section for displaying recent questions and answers
-    if 'chat_history' in st.session_state and st.session_state.chat_history:
+     if 'chat_history' in st.session_state and st.session_state.chat_history:
         st.header("Recent Questions and Answers")
         for i, (q, a) in enumerate(reversed(st.session_state.chat_history[-5:])):
             with st.expander(f"Q: {q}"):
