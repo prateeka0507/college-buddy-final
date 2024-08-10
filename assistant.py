@@ -327,7 +327,7 @@ def main():
             st.switch_page("pages/database.py")
    
     # Main content area
- st.header("Popular Questions")
+    st.header("Popular Questions")
     if 'selected_questions' not in st.session_state:
         st.session_state.selected_questions = random.sample(EXAMPLE_QUESTIONS, 3)
 
